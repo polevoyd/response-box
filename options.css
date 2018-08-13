@@ -1,0 +1,49 @@
+
+body
+{
+    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Slabo 5em', serif;
+    font-size: 1.2em;
+    text-align: left;
+    margin: 5em;
+}
+.wrapper 
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0px;
+    grid-template-rows: repeat(3, 1fr);
+}
+.one 
+{
+  grid-column: 1 / 2;
+  grid-row: 1;
+  align-self: end;
+}
+.two 
+{ 
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+}
+.three 
+{
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+}
+.four 
+{
+  grid-column: 1 / 4;
+  grid-row: 3 / 5;
+  align-self: center;
+  align-self: center;
+}
+.five 
+{
+  grid-column: 1 / 4;
+  grid-row: 5;
+  align-self: baseline;
+}
+.points
+{
+    font-weight: bold;
+}

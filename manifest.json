@@ -1,0 +1,53 @@
+{
+  "manifest_version": 2,
+  "name": "Response Box",
+  "description": "Make social media responses easy with templated messages",
+  "version": "1",
+  "homepage_url": "https://polevoyd.com",
+  "options_page": "options.html",
+
+  "icons": 
+  {
+    "128": "images/icon.png"
+  },
+
+  "browser_action": 
+  {
+    "default_icon": 
+    {
+      "48": "images/icon.png"
+    },
+    "default_title": "Response Box"
+  },
+
+  "background": 
+  {
+    "scripts": ["background.js", "edit-note.js"]
+  },
+
+  "commands": 
+  {
+    "backnote": 
+    {
+      "suggested_key": { "default": "Ctrl+Shift+V" },
+      "description": "Sending request to open a backnote tab"
+    }
+  },
+
+  "content_scripts": 
+  [{
+    "matches": ["*://*/*"],
+    "js": ["content-script.js"]
+  }],
+  
+  "permissions": 
+  [
+    "tabs",
+    "clipboardWrite",
+    "clipboardRead",
+    "<all_urls>",
+    "downloads",
+    "contextMenus" 
+  ]
+}
+

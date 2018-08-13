@@ -1,0 +1,30 @@
+
+*
+{
+  outline: 0;
+}
+body 
+{
+  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Slabo 5em', serif;
+  font-size: 1em;
+  align-content: center;
+  text-align: center;
+  margin: 1em;
+}
+.notepad 
+{
+  min-width: 200px;
+  text-align: left;
+  word-wrap: break-word;
+  min-height: 620px;
+}
+#downloadButton
+{
+  margin-bottom: 2em;
+  min-width: 2em;
+}
+#downloadButton:hover 
+{
+  box-shadow: 0px 0px 5px black;
+}
