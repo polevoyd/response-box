@@ -1,12 +1,6 @@
-
-// test function
-function consoleTemplateMessage(event)
-{
-  // at this point I can log info to a console on a click
-  console.log("hello, this is a test");
-
-}
-
+// in this script we are:
+// 1 - listening for a context menu click with spcific template
+// 2 - sending this  templated message to a content script, which injects it
 
 /*-----------------------------------------------------------------------*/
 // adding listener to our button on top right
@@ -19,8 +13,6 @@ browser.contextMenus.create(
     title: "Response Box",
   });
 
-// adding listener to a context menu
-browser.contextMenus.onClicked.addListener(consoleTemplateMessage);
 
 
 
@@ -28,8 +20,12 @@ browser.contextMenus.onClicked.addListener(consoleTemplateMessage);
 
 function handleMessage(request, sender, sendResponse) {
   console.log("Message from the content script: " +
-    request.greeting);
-  sendResponse({response: "Response from background script"});
+    request.template);
+  sendResponse({response: "TEMPLATED MESSAGE1"});
 }
 
 browser.runtime.onMessage.addListener(handleMessage);
+
+
+// adding listener to a context menu
+// browser.contextMenus.onClicked.addListener(consoleTemplateMessage);
