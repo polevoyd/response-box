@@ -3,11 +3,9 @@
 // 2 - sending this  templated message to a content script, which injects it
 
 /*-----------------------------------------------------------------------*/
-// adding listener to our button on top right
-// browser.browserAction.onClicked.addListener(openEditNotesTab);
 
 // template to send
-var messageToSend = 'HELLO!';
+var messageToSend = 'Hello!';
 
 
 
@@ -19,30 +17,82 @@ browser.contextMenus.create(
   });
 
 
-function happensOnMenuClick(e)
-{
-  console.log();
-}
-
-// background-script.js
-
-function handleMessage(request, sender, sendResponse)
-{
-  // message is: request.greeting
-  sendResponse({response: messageToSend});
-}
-
-browser.runtime.onMessage.addListener(handleMessage);
-
-
-// // adding listener to a context menu
-// /*
-// The click event listener, where we perform the appropriate action given the
-// ID of the menu item that was clicked.
-// */
-// browser.menus.onClicked.addListener((info, tab) => 
+// function happensOnMenuClick(e)
 // {
-//   console.log
-// info.menuItemId
+//   console.log();
+// }
+
+
+// function handleMessage(request, sender, sendResponse)
+// {
+//   // message is: request.greeting
+//   sendResponse({response: messageToSend});
+// }
+
+// browser.runtime.onMessage.addListener(handleMessage);
+
+
+
+
+// adding listener to a context menu
+/*
+The click event listener, where we perform the appropriate action given the
+ID of the menu item that was clicked.
+*/
+// browser.contextMenus.onClicked.addListener((info) =>
+// {
+//   // console.log(info.menuItemId);
+
+//   // send to context script to set a template
+//   function sendMessageToTabs(tabs) 
+//   {
+//     for (let tab of tabs) 
+//     {
+//       browser.tabs.sendMessage(
+//         tab.id,
+//         {request: "Hi from background script"}
+//       );
+//     }
+//   }
+
 
 // });
+
+
+
+
+
+
+
+function onError(error) 
+{
+  console.error(`Error: ${error}`);
+}
+
+function sendMessageToTabs(tabs) 
+{
+  for (let tab of tabs) 
+  {
+    browser.tabs.sendMessage(
+      tab.id,
+      {greeting: "Hi from background script"}
+    );
+  }
+}
+
+
+
+browser.contextMenus.onClicked.addListener((clickedMenu) => {
+
+  console.log(clickedMenu.menuItemId);
+
+
+
+
+  browser.tabs.query(
+    {
+      currentWindow: true,
+      active: true
+    }
+  ).then(sendMessageToTabs).catch(onError);
+});
