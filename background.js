@@ -1,120 +1,35 @@
-// current toggle state: true - active, false - not active
-// var currentState = true;
 
-/*-----------------------------------------------------------------*/
-// move existing backnote tab to last place or create a new
-function openResponsesTab()
+// test function
+function consoleTemplateMessage(event)
 {
-  // checker to see if tab is already exist (doesnt by default)
-  var backnoteTabId = undefined;
-  // request to show all tabs
-  chrome.tabs.query({}, function(tabs)
-  {
-    // run loop throught all tabs
-    for (var t of tabs)
-    {
-      // check if current tab is "Backnote"
-      if (t.title === 'Response Box')
-      {
-        // if yes, save ID and jump out
-        backnoteTabId = t.id;
-        break;
-      }
-    }
-    // if ID is not undefined
-    if (backnoteTabId)
-    {
-      // to create a new window and put existing backnote tab in there
-      chrome.windows.create(
-        {
-          tabId: backnoteTabId,
-          type: 'popup',
-          height: 720,
-          width: 540,
-        });
-    }
-    else
-    {
-      // to create a new window and open tab in there
-      chrome.windows.create(
-        {
-          url: './edit-note.html',
-          type: 'popup',
-          height: 720,
-          width: 540,
-        });
-    }
-  });
+  // at this point I can log info to a console on a click
+  console.log("hello, this is a test");
+
 }
 
-/*-----------------------------------------------------------------*/
-// function to attach and detach listener depending on currentStateIsOn
-// function switchCurrentState()
-// {
-//   // console.log(chrome.commands.onCommand);
-//   // if on - then turn off
-//   if (currentState)
-//   {
-//     chrome.commands.onCommand.removeListener(createOrSwitchToBacknoteTab);
-//     // change current state
-//     currentState = false;
-//     // change icon on top to red
-//     chrome.browserAction.setIcon({path:'./images/icon_off.png'});
-//   }
-//   else
-//   {
-//     // set listener to open a tab with notes
-//     chrome.commands.onCommand.addListener(createOrSwitchToBacknoteTab);
-//     // change current state
-//     currentState = true;
-//     // change icon on top to green
-//     chrome.browserAction.setIcon({path:'./images/icon_on.png'});
-//   }
-// }
-/*-----------------------------------------------------------------*/
-// attach listener to upper right icon to toggle extension
-// chrome.browserAction.onClicked.addListener(openResponsesTab);
-// set listener to open a tab with notes
-// chrome.commands.onCommand.addListener(createOrSwitchToBacknoteTab);
+
+/*-----------------------------------------------------------------------*/
+// adding listener to our button on top right
+// browser.browserAction.onClicked.addListener(openEditNotesTab);
+
+// Add a context menu action on selected text on a page
+browser.contextMenus.create(
+  {
+    id: "paste-message-template",
+    title: "Response Box",
+  });
+
+// adding listener to a context menu
+browser.contextMenus.onClicked.addListener(consoleTemplateMessage);
 
 
 
+// background-script.js
 
+function handleMessage(request, sender, sendResponse) {
+  console.log("Message from the content script: " +
+    request.greeting);
+  sendResponse({response: "Response from background script"});
+}
 
-
-
-
-
-// // background-script.js
-
-// browser.runtime.onMessage.addListener(notify);
-
-// function notify(message)
-// {
-//   browser.notifications.create(
-//     {
-//       'type': 'basic',
-//       'iconUrl': browser.extension.getURL('link.png'),
-//       'title': 'You clicked a link!',
-//       'message': message.url
-//     });
-// }
-
-
-
-
-browser.contextMenus.create({
-  id: 'log-selection',
-  title: browser.i18n.getMessage('contextMenuItemSelectionLogger'),
-  contexts: ['selection']
-}, onCreated);
-
-
-browser.contextMenus.onClicked.addListener(function(info, tab) {
-  switch (info.menuItemId) {
-  case 'log-selection':
-    console.log(info.selectionText);
-    break;
-
-  }
-});
+browser.runtime.onMessage.addListener(handleMessage);
