@@ -26,7 +26,9 @@ function sendMessageToTabs(tabs)
   {
     browser.tabs.sendMessage(
       tab.id,
-      {template: templates[lastMenuClicked]}
+      {
+        template: templates[lastMenuClicked]
+      }
     );
   }
 }
