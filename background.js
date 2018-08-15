@@ -48,3 +48,12 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
     }
   ).then(sendMessageToTabs);
 });
+
+
+///////////////////////////////////////////////////////////////////////////
+//---------------------------------------------------------------------------
+// open a tab with different templates 
+browser.browserAction.onClicked.addListener(() => 
+{
+  browser.tabs.create({url: "./response-box.html"});
+});
