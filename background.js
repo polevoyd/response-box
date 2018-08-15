@@ -1,5 +1,12 @@
 
 //---------------------------------------------------------------------------
+// open a tab with different templates 
+browser.browserAction.onClicked.addListener(() => 
+{
+  browser.tabs.create({url: "./response-box.html"});
+});
+
+//---------------------------------------------------------------------------
 // templates map { menuID : templateMessage }
 let templates = 
 {
@@ -51,9 +58,3 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
 
 
 ///////////////////////////////////////////////////////////////////////////
-//---------------------------------------------------------------------------
-// open a tab with different templates 
-browser.browserAction.onClicked.addListener(() => 
-{
-  browser.tabs.create({url: "./response-box.html"});
-});
