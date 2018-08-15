@@ -1,15 +1,18 @@
 
+//----------------------------------------------------------------
+// keep an object of clicked field in global variable
+let inputFieldClicked;
 
-
-// send data to a backnote
-function sendTextToBacknote()
+//----------------------------------------------------------------
+// listener for a right mouse click to save input field object reference
+window.addEventListener('contextmenu', function(e)
 {
-  // capture selected text 
-  var selectedText = window.getSelection().toString().trim();
+  inputFieldClicked = e.target;
+});
 
-  // send it to edit-note.js with key : backnote_data
-  chrome.runtime.sendMessage({backnoteData: selectedText}, function(){});
-}
-
-// // Add copySelection() as a listener to mouseup events.
-document.addEventListener('mouseup', sendTextToBacknote);
+//----------------------------------------------------------------
+// listener for a message to fill a field with template
+browser.runtime.onMessage.addListener(request =>
+{
+  inputFieldClicked.value += request.template;
+});
