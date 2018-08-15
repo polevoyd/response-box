@@ -1,17 +1,61 @@
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-//---------------------------------------------------------------------------
-// open a tab with different templates 
-browser.browserAction.onClicked.addListener(() => 
-{
-  browser.tabs.create({url: "./response-box.html"});
-});
+// templates map { menuID : templateMessage }
+// let templates =
+// {
+//   'responsebox-template1' : 'Hello! This is a value of first template!',
+// };
+
+// let templates = {};
+
+// store the objects
+
+// create all the context menus
+// browser.menus.create({
+//   id: 'menu1',
+//   title: 'One',
+//   contexts: ['all']
+// });
+
+// browser.menus.create({
+//   id: 'menu2',
+//   title: 'Two',
+//   contexts: ['all']
+// });
+
+// browser.menus.create({
+//   id: 'menu3',
+//   title: 'Three',
+//   contexts: ['all']
+// });
+
+// browser.menus.create({
+//   id: 'menu4',
+//   title: 'Four',
+//   contexts: ['all']
+// });
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+
 
 //---------------------------------------------------------------------------
 // templates map { menuID : templateMessage }
-let templates = 
+let templates =
 {
   'responsebox-template1' : 'Hello! This is a value of first template!',
 };
+
+//---------------------------------------------------------------------------
+// open a tab with different templates
+browser.browserAction.onClicked.addListener(() =>
+{
+  browser.tabs.create({url: './response-box.html'});
+});
 
 //---------------------------------------------------------------------------
 // Add a context menu action on selected text on a page
@@ -27,9 +71,9 @@ let lastMenuClicked = '';
 
 //---------------------------------------------------------------------------
 // sending a template to active tab
-function sendMessageToTabs(tabs) 
+function sendMessageToTabs(tabs)
 {
-  for (let tab of tabs) 
+  for (let tab of tabs)
   {
     browser.tabs.sendMessage(
       tab.id,
@@ -57,4 +101,6 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
 });
 
 
-///////////////////////////////////////////////////////////////////////////
+
+
+
