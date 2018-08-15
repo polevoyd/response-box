@@ -1,5 +1,5 @@
 // current toggle state: true - active, false - not active
-var currentState = true;
+// var currentState = true;
 
 /*-----------------------------------------------------------------*/
 // move existing backnote tab to last place or create a new
@@ -73,7 +73,7 @@ function openResponsesTab()
 // }
 /*-----------------------------------------------------------------*/
 // attach listener to upper right icon to toggle extension
-chrome.browserAction.onClicked.addListener(openResponsesTab);
+// chrome.browserAction.onClicked.addListener(openResponsesTab);
 // set listener to open a tab with notes
 // chrome.commands.onCommand.addListener(createOrSwitchToBacknoteTab);
 
@@ -103,5 +103,18 @@ chrome.browserAction.onClicked.addListener(openResponsesTab);
 
 
 
+browser.contextMenus.create({
+  id: 'log-selection',
+  title: browser.i18n.getMessage('contextMenuItemSelectionLogger'),
+  contexts: ['selection']
+}, onCreated);
 
 
+browser.contextMenus.onClicked.addListener(function(info, tab) {
+  switch (info.menuItemId) {
+  case 'log-selection':
+    console.log(info.selectionText);
+    break;
+
+  }
+});
