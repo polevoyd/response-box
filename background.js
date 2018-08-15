@@ -6,26 +6,43 @@
 // adding listener to our button on top right
 // browser.browserAction.onClicked.addListener(openEditNotesTab);
 
+// template to send
+var messageToSend = 'HELLO!';
+
+
+
 // Add a context menu action on selected text on a page
 browser.contextMenus.create(
   {
-    id: "paste-message-template",
-    title: "Response Box",
+    id: 'paste-message-template1',
+    title: 'Template1',
   });
 
 
-
+function happensOnMenuClick(e)
+{
+  console.log();
+}
 
 // background-script.js
 
-function handleMessage(request, sender, sendResponse) {
-  console.log("Message from the content script: " +
-    request.template);
-  sendResponse({response: "TEMPLATED MESSAGE1"});
+function handleMessage(request, sender, sendResponse)
+{
+  // message is: request.greeting
+  sendResponse({response: messageToSend});
 }
 
 browser.runtime.onMessage.addListener(handleMessage);
 
 
-// adding listener to a context menu
-// browser.contextMenus.onClicked.addListener(consoleTemplateMessage);
+// // adding listener to a context menu
+// /*
+// The click event listener, where we perform the appropriate action given the
+// ID of the menu item that was clicked.
+// */
+// browser.menus.onClicked.addListener((info, tab) => 
+// {
+//   console.log
+// info.menuItemId
+
+// });

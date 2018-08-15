@@ -14,24 +14,9 @@ function handleResponse(message)
 // log an error
 function handleError(error)
 {
-  // console.log(`Error: ${error}`);
+  console.log(`Error: ${error}`);
 }
 
-//----------------------------------------------------------------
-// send message to a background and take a response after
-function notifyBackgroundPage(e)
-{
-  console.log(e);
-
-
-
-
-  var sending = browser.runtime.sendMessage(
-    {
-      template: 'Here a send a ID of a context menu and been clicked and wait for a template with same ID'
-    });
-  sending.then(handleResponse, handleError);
-}
 
 //----------------------------------------------------------------
 // listener for a context menu click
@@ -41,10 +26,14 @@ window.addEventListener('contextmenu', function(e)
   // then, after we recieve it, we can add it to a current input value in that variable
 
   // saving current value
-  var currentValue = e.target.value;
+  // var currentValue = e.target.value;
 
   // send a request to background script for a template
-  notifyBackgroundPage(e);
+  var sending = browser.runtime.sendMessage(
+    {
+      request: 'Here a send a ID of a context menu and been clicked and wait for a template with same ID'
+    });
+  sending.then(handleResponse, handleError);
 
 
 
