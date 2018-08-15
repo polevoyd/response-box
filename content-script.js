@@ -42,7 +42,7 @@
 
 
 
-//   // set templated message from a background as a imput field value
+//   // set templated message from a background as a input field value
 //   e.target.value = templateMessageFromBackground;
 
 // });
@@ -64,7 +64,15 @@
 
 browser.runtime.onMessage.addListener(request =>
 {
-  console.log('Message from the background script:');
-  console.log(request.greeting);
-  
+  console.log(request.template);
+
+  // let changeFieldValue = function(e)
+  // {
+  //   console.log(e);
+  // };
+  // // put a request message as a value of input field
+
+
+
+
 });

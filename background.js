@@ -5,14 +5,17 @@
 /*-----------------------------------------------------------------------*/
 
 // template to send
-var messageToSend = 'Hello!';
+let templates = 
+{
+  'responsebox-template1' : 'Hello! This is a value of first template!',
+};
 
 
 
 // Add a context menu action on selected text on a page
 browser.contextMenus.create(
   {
-    id: 'paste-message-template1',
+    id: 'responsebox-template1',
     title: 'Template1',
   });
 
@@ -60,7 +63,7 @@ ID of the menu item that was clicked.
 
 
 
-
+let lastMenuClicked = '';
 
 
 
@@ -75,7 +78,7 @@ function sendMessageToTabs(tabs)
   {
     browser.tabs.sendMessage(
       tab.id,
-      {greeting: "Hi from background script"}
+      {template: templates[lastMenuClicked]}
     );
   }
 }
@@ -84,8 +87,8 @@ function sendMessageToTabs(tabs)
 
 browser.contextMenus.onClicked.addListener((clickedMenu) => {
 
-  console.log(clickedMenu.menuItemId);
-
+  // console.log(clickedMenu.menuItemId); // responsebox-template1
+  lastMenuClicked = clickedMenu.menuItemId;
 
 
 
