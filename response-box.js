@@ -12,41 +12,24 @@ var addBtn = document.querySelector('.add');
 
 addBtn.addEventListener('click', addTemplate);
 
-
 //----------------------------------------------------------------
 // display stored templates
+
+initialize();
+
 function initialize() 
 {
-  chrome.storage.local.get((storageEntries) => 
+  chrome.storage.local.get((storageEntries) =>
   {
     Object.keys(storageEntries).forEach((entry) =>
     {
-
-      let currentKey = Object.keys(entry)[0];
-      let currentValue = Object.values(entry)[0];
+      let currentKey = entry;
+      let currentValue = Object.values(storageEntries)[0];
 
       displayTemplate(currentKey, currentValue);
     });
   });
 }
-
-initialize();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //----------------------------------------------------------------
 // adding template to display and to storage
@@ -65,13 +48,6 @@ function addTemplate()
       storeTemplate(templateTitle,templateBody);
     }
   });
-
-
-
-
-
-
-
 }
 
 //----------------------------------------------------------------
@@ -83,12 +59,6 @@ function storeTemplate(title, body)
   {
     displayTemplate(title,body);
   });
-
-
-
-
-
-
 }
 
 //----------------------------------------------------------------
