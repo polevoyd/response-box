@@ -1,48 +1,57 @@
-/* initialise variables */
-
+//----------------------------------------------------------------
+// initializing what already there
 var inputTitle = document.querySelector('.new-note input');
 var inputBody = document.querySelector('.new-note textarea');
 
 var noteContainer = document.querySelector('.note-container');
 
-
 var clearBtn = document.querySelector('.clear');
 var addBtn = document.querySelector('.add');
 
-/*  add event listeners to buttons */
+//----------------------------------------------------------------
+// adding listeners to buttons
 
 addBtn.addEventListener('click', addNote);
 clearBtn.addEventListener('click', clearAll);
 
-/* generic error handler */
-function onError(error) {
+//----------------------------------------------------------------
+// to handle errors (generic)
+function onError(error) 
+{
   console.log(error);
 }
 
-/* display previously-saved stored notes on startup */
+//----------------------------------------------------------------
+// display stored templates
 
 initialize();
 
-function initialize() {
+function initialize() 
+{
   var gettingAllStorageItems = browser.storage.local.get(null);
-  gettingAllStorageItems.then((results) => {
+  gettingAllStorageItems.then((results) =>
+  {
     var noteKeys = Object.keys(results);
-    for (let noteKey of noteKeys) {
+    for (let noteKey of noteKeys) 
+    {
       var curValue = results[noteKey];
       displayNote(noteKey,curValue);
     }
   }, onError);
 }
 
-/* Add a note to the display, and storage */
+//----------------------------------------------------------------
+// adding template to display and to storage
 
 function addNote() {
   var noteTitle = inputTitle.value;
   var noteBody = inputBody.value;
   var gettingItem = browser.storage.local.get(noteTitle);
-  gettingItem.then((result) => {
+  gettingItem.then((result) =>
+  {
     var objTest = Object.keys(result);
-    if(objTest.length < 1 && noteTitle !== '' && noteBody !== '') {
+    if(objTest.length < 1 && noteTitle !== '' && noteBody !== '') 
+    {
       inputTitle.value = '';
       inputBody.value = '';
       storeNote(noteTitle,noteBody);
@@ -50,20 +59,24 @@ function addNote() {
   }, onError);
 }
 
-/* function to store a new note in storage */
+//----------------------------------------------------------------
+// store new template
 
-function storeNote(title, body) {
+function storeNote(title, body)
+{
   var storingNote = browser.storage.local.set({ [title] : body });
-  storingNote.then(() => {
+  storingNote.then(() =>
+  {
     displayNote(title,body);
   }, onError);
 }
 
-/* function to display a note in the note box */
+//----------------------------------------------------------------
+// to display template in a box 
+function displayNote(title, body)
+{
 
-function displayNote(title, body) {
-
-  /* create note display box */
+  // create new desplay box 
   var note = document.createElement('div');
   var noteDisplay = document.createElement('div');
   var noteH = document.createElement('h2');
@@ -86,15 +99,16 @@ function displayNote(title, body) {
 
   note.appendChild(noteDisplay);
 
-  /* set up listener for the delete functionality */
+  // setting up listener to delete function
 
-  deleteBtn.addEventListener('click',(e) => {
+  deleteBtn.addEventListener('click',(e) =>
+  {
     const evtTgt = e.target;
     evtTgt.parentNode.parentNode.parentNode.removeChild(evtTgt.parentNode.parentNode);
     browser.storage.local.remove(title);
   });
 
-  /* create note edit box */
+  // creating a editing box 
   var noteEdit = document.createElement('div');
   var noteTitleEdit = document.createElement('input');
   var noteBodyEdit = document.createElement('textarea');
@@ -123,54 +137,66 @@ function displayNote(title, body) {
   noteContainer.appendChild(note);
   noteEdit.style.display = 'none';
 
-  /* set up listeners for the update functionality */
+  // adding listeners to update functionality
 
-  noteH.addEventListener('click',() => {
+  noteH.addEventListener('click',() =>
+  {
     noteDisplay.style.display = 'none';
     noteEdit.style.display = 'block';
   });
 
-  notePara.addEventListener('click',() => {
+  notePara.addEventListener('click',() =>
+  {
     noteDisplay.style.display = 'none';
     noteEdit.style.display = 'block';
   });
 
-  cancelBtn.addEventListener('click',() => {
+  cancelBtn.addEventListener('click',() =>
+  {
     noteDisplay.style.display = 'block';
     noteEdit.style.display = 'none';
     noteTitleEdit.value = title;
     noteBodyEdit.value = body;
   });
 
-  updateBtn.addEventListener('click',() => {
-    if(noteTitleEdit.value !== title || noteBodyEdit.value !== body) {
+  updateBtn.addEventListener('click',() =>
+  {
+    if(noteTitleEdit.value !== title || noteBodyEdit.value !== body)
+    {
       updateNote(title,noteTitleEdit.value,noteBodyEdit.value);
       note.parentNode.removeChild(note);
     }
   });
 }
 
-
-/* function to update notes */
-
-function updateNote(delNote,newTitle,newBody) {
+//----------------------------------------------------------------
+// function to update notes
+function updateNote(delNote,newTitle,newBody)
+{
   var storingNote = browser.storage.local.set({ [newTitle] : newBody });
-  storingNote.then(() => {
-    if(delNote !== newTitle) {
+  storingNote.then(() =>
+  {
+    if(delNote !== newTitle)
+    {
       var removingNote = browser.storage.local.remove(delNote);
-      removingNote.then(() => {
+      removingNote.then(() =>
+      {
         displayNote(newTitle, newBody);
       }, onError);
-    } else {
+    }
+    else
+    {
       displayNote(newTitle, newBody);
     }
   }, onError);
 }
 
-/* Clear all notes from the display/storage */
-
-function clearAll() {
-  while (noteContainer.firstChild) {
+//----------------------------------------------------------------
+// function to clear all templates from display & storage
+function clearAll() 
+{
+  while (noteContainer.firstChild)
+  {
     noteContainer.removeChild(noteContainer.firstChild);
   }
   browser.storage.local.clear();
