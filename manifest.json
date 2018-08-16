@@ -21,7 +21,7 @@
 
   "background": 
   {
-    "scripts": ["background.js", "edit-note.js"]
+    "scripts": ["background.js"]
   },
 
   "content_scripts": 
@@ -33,7 +33,6 @@
   "permissions": 
   [
     "tabs",
-    "menus",
     "activeTab",
     "contextMenus",
     "<all_urls>",
