@@ -38,13 +38,6 @@
     "contextMenus",
     "<all_urls>",
     "storage"
-  ],
-
-  "sidebar_action": 
-  {
-    "default_icon": "icons/page-32.png",
-    "default_title" : "My sidebar",
-    "default_panel": "sidebar/sidebar.html"
-  }
+  ]
 }
 
