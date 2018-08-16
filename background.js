@@ -80,6 +80,9 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
 // on change of local storage recreate a context menus
 browser.storage.onChanged.addListener(function()
 {
+  // remove all current menu items
+  browser.menus.removeAll();
+  
   // get all items from a storage
   let gettingItem = browser.storage.local.get();
   gettingItem.then(onGot, onError);
