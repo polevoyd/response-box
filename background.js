@@ -65,7 +65,7 @@ chrome.contextMenus.onClicked.addListener((clickedMenu) =>
 chrome.storage.onChanged.addListener(function()
 {
   // remove all current menu items
-  chrome.menus.removeAll();
+  chrome.contextMenus.removeAll();
   
   // get all items from a storage and recreate menus
   chrome.storage.local.get((storageEntries) =>
