@@ -14,5 +14,14 @@ window.addEventListener('contextmenu', function(e)
 // listener for a message to fill a field with template
 browser.runtime.onMessage.addListener(request =>
 {
-  inputFieldClicked.value += request.template;
+  // inputFieldClicked.value += request.template;
+  inputFieldClicked.innerHTML += request.template;
+
 });
+
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+

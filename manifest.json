@@ -16,7 +16,7 @@
     {
       "48": "images/icon.png"
     },
-    "default_title": "Saved notes"
+    "default_title": "Response Box"
   },
 
   "background": 
@@ -33,6 +33,7 @@
   "permissions": 
   [
     "tabs",
+    "menus",
     "activeTab",
     "contextMenus",
     "<all_urls>",

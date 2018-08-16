@@ -1,33 +1,54 @@
 
 //---------------------------------------------------------------------------
-// templates map { menuID : templateMessage }
-let templates = 
+// create a context menus from a storage.local entries
+// once we got storage promise
+function onGot(storageEntries)
 {
-  'responsebox-template1' : 'Hello! This is a value of first template!',
-};
+  Object.keys(storageEntries).forEach(entry =>
+  {
+    browser.menus.create(
+      {
+        id: entry,
+        title: entry,
+        contexts: ['editable']
+      });
+  });
+}
 
 //---------------------------------------------------------------------------
-// Add a context menu action on selected text on a page
-browser.contextMenus.create(
-  {
-    id: 'responsebox-template1',
-    title: 'Template1',
-  });
+// do this if failed to get storage entries
+function onError(error)
+{
+  console.log(`Error: ${error}`);
+}
+
+//---------------------------------------------------------------------------
+// get all items from a storage
+let gettingItem = browser.storage.local.get();
+gettingItem.then(onGot, onError);
+
+//---------------------------------------------------------------------------
+// open a tab with different templates
+browser.browserAction.onClicked.addListener(() =>
+{
+  browser.tabs.create({url: './response-box.html'});
+});
 
 //---------------------------------------------------------------------------
 // keep last selected template here
 let lastMenuClicked = '';
+let lastTemplateSent = '';
 
 //---------------------------------------------------------------------------
 // sending a template to active tab
-function sendMessageToTabs(tabs) 
+function sendMessageToTabs(tabs)
 {
-  for (let tab of tabs) 
+  for (let tab of tabs)
   {
     browser.tabs.sendMessage(
       tab.id,
       {
-        template: templates[lastMenuClicked]
+        template: lastTemplateSent
       }
     );
   }
@@ -40,6 +61,12 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
   // keep last clicked menu in a global variable
   lastMenuClicked = clickedMenu.menuItemId;
 
+  // get a entry we need and keep it global to send
+  browser.storage.local.get(lastMenuClicked).then(function(entry)
+  {
+    lastTemplateSent = Object.values(entry)[0];
+  });
+
   // select active tab and send template there
   browser.tabs.query(
     {
@@ -48,3 +75,19 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
     }
   ).then(sendMessageToTabs);
 });
+
+//---------------------------------------------------------------------------
+// on change of local storage recreate a context menus
+browser.storage.onChanged.addListener(function()
+{
+  // remove all current menu items
+  browser.menus.removeAll();
+  
+  // get all items from a storage
+  let gettingItem = browser.storage.local.get();
+  gettingItem.then(onGot, onError);
+});
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
