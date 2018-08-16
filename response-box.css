@@ -75,7 +75,7 @@ p, input, textarea
   line-height: 1.5;
 }
 
-.new-note 
+.new-template 
 {
   width: 100%;
   margin-bottom: 5px;
@@ -106,7 +106,7 @@ textarea
   float: right;
 }
 
-.note 
+.template 
 {
   padding: 2px;
 }
