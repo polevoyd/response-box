@@ -1,7 +1,4 @@
 
-chrome.storage.local.set({'menu1': 'value1'}, function() {});
-chrome.storage.local.set({'menu2': 'value2'}, function() {});
-chrome.storage.local.set({'menu3': 'value3'}, function() {});
 
 //---------------------------------------------------------------------------
 // keep last selected template here
