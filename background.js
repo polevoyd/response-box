@@ -76,6 +76,15 @@ browser.contextMenus.onClicked.addListener((clickedMenu) =>
   ).then(sendMessageToTabs);
 });
 
+//---------------------------------------------------------------------------
+// on change of local storage recreate a context menus
+browser.storage.onChanged.addListener(function()
+{
+  // get all items from a storage
+  let gettingItem = browser.storage.local.get();
+  gettingItem.then(onGot, onError);
+});
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
