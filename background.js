@@ -1,93 +1,92 @@
 
+
+//---------------------------------------------------------------------------
+// keep last selected template here
+let lastTemplateSent = '';
+
 //---------------------------------------------------------------------------
 // create a context menus from a storage.local entries
-// once we got storage promise
-function onGot(storageEntries)
+chrome.storage.local.get((storageEntries) =>
 {
-  Object.keys(storageEntries).forEach(entry =>
+  Object.keys(storageEntries).forEach((entry) =>
   {
-    browser.menus.create(
+    chrome.contextMenus.create(
       {
         id: entry,
         title: entry,
         contexts: ['editable']
       });
   });
-}
-
-//---------------------------------------------------------------------------
-// do this if failed to get storage entries
-function onError(error)
-{
-  console.log(`Error: ${error}`);
-}
-
-//---------------------------------------------------------------------------
-// get all items from a storage
-let gettingItem = browser.storage.local.get();
-gettingItem.then(onGot, onError);
-
-//---------------------------------------------------------------------------
-// open a tab with different templates
-browser.browserAction.onClicked.addListener(() =>
-{
-  browser.tabs.create({url: './response-box.html'});
 });
 
 //---------------------------------------------------------------------------
-// keep last selected template here
-let lastMenuClicked = '';
-let lastTemplateSent = '';
-
-//---------------------------------------------------------------------------
-// sending a template to active tab
-function sendMessageToTabs(tabs)
+// open a tab with different templates
+chrome.browserAction.onClicked.addListener(() =>
 {
-  for (let tab of tabs)
-  {
-    browser.tabs.sendMessage(
-      tab.id,
-      {
-        template: lastTemplateSent
-      }
-    );
-  }
-}
+  chrome.tabs.create({url: './response-box.html'});
+});
 
 //---------------------------------------------------------------------------
 // listener on a context menu click
-browser.contextMenus.onClicked.addListener((clickedMenu) =>
+chrome.contextMenus.onClicked.addListener((clickedMenu) =>
 {
-  // keep last clicked menu in a global variable
-  lastMenuClicked = clickedMenu.menuItemId;
-
-  // get a entry we need and keep it global to send
-  browser.storage.local.get(lastMenuClicked).then(function(entry)
+  // get a entry we need to send
+  chrome.storage.local.get(clickedMenu.menuItemId, function(entry) 
   {
+    // template to send storing in global variable
     lastTemplateSent = Object.values(entry)[0];
+    
+    // select active tab and send template there
+    chrome.tabs.query(
+      {
+        currentWindow: true,
+        active: true
+      }, function(tabs)
+      {
+        for (let tab of tabs)
+        {
+          chrome.tabs.sendMessage(
+            tab.id,
+            {
+              template: lastTemplateSent
+            }
+          );
+        }
+      }
+    );
   });
-
-  // select active tab and send template there
-  browser.tabs.query(
-    {
-      currentWindow: true,
-      active: true
-    }
-  ).then(sendMessageToTabs);
 });
 
 //---------------------------------------------------------------------------
 // on change of local storage recreate a context menus
-browser.storage.onChanged.addListener(function()
+chrome.storage.onChanged.addListener(function()
 {
   // remove all current menu items
-  browser.menus.removeAll();
+  chrome.contextMenus.removeAll();
   
-  // get all items from a storage
-  let gettingItem = browser.storage.local.get();
-  gettingItem.then(onGot, onError);
+  // get all items from a storage and recreate menus
+  chrome.storage.local.get((storageEntries) =>
+  {
+    Object.keys(storageEntries).forEach((entry) =>
+    {
+      chrome.contextMenus.create(
+        {
+          id: entry,
+          title: entry,
+          contexts: ['editable']
+        });
+    });
+  });
 });
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+

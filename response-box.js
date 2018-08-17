@@ -13,48 +13,41 @@ var addBtn = document.querySelector('.add');
 addBtn.addEventListener('click', addTemplate);
 
 //----------------------------------------------------------------
-// to handle errors (generic)
-function onError(error) 
-{
-  console.log(error);
-}
-
-//----------------------------------------------------------------
 // display stored templates
 
 initialize();
 
 function initialize() 
 {
-  var gettingAllStorageItems = browser.storage.local.get(null);
-  gettingAllStorageItems.then((results) =>
+  chrome.storage.local.get((storageEntries) =>
   {
-    var templateKeys = Object.keys(results);
-    for (let templateKey of templateKeys) 
+    Object.keys(storageEntries).forEach((entry) =>
     {
-      var curValue = results[templateKey];
-      displayTemplate(templateKey,curValue);
-    }
-  }, onError);
+      let currentKey = entry;
+      let currentValue = Object.values(storageEntries)[0];
+
+      displayTemplate(currentKey, currentValue);
+    });
+  });
 }
 
 //----------------------------------------------------------------
 // adding template to display and to storage
 
-function addTemplate() {
+function addTemplate() 
+{
   var templateTitle = inputTitle.value;
   var templateBody = inputBody.value;
-  var gettingItem = browser.storage.local.get(templateTitle);
-  gettingItem.then((result) =>
+  chrome.storage.local.get(templateTitle, function(entry)
   {
-    var objTest = Object.keys(result);
+    var objTest = Object.keys(entry);
     if(objTest.length < 1 && templateTitle !== '' && templateBody !== '') 
     {
       inputTitle.value = '';
       inputBody.value = '';
       storeTemplate(templateTitle,templateBody);
     }
-  }, onError);
+  });
 }
 
 //----------------------------------------------------------------
@@ -62,11 +55,10 @@ function addTemplate() {
 
 function storeTemplate(title, body)
 {
-  var storingTemplate = browser.storage.local.set({ [title] : body });
-  storingTemplate.then(() =>
+  chrome.storage.local.set({ [title] : body }, function()
   {
     displayTemplate(title,body);
-  }, onError);
+  });
 }
 
 //----------------------------------------------------------------
@@ -103,7 +95,7 @@ function displayTemplate(title, body)
   {
     const evtTgt = e.target;
     evtTgt.parentNode.parentNode.parentNode.removeChild(evtTgt.parentNode.parentNode);
-    browser.storage.local.remove(title);
+    chrome.storage.local.remove(title);
   });
 
   // creating a editing box 
@@ -172,20 +164,20 @@ function displayTemplate(title, body)
 // function to update templates
 function updateTemplate(delTemplate,newTitle,newBody)
 {
-  var storingTemplate = browser.storage.local.set({ [newTitle] : newBody });
+  var storingTemplate = chrome.storage.local.set({ [newTitle] : newBody });
   storingTemplate.then(() =>
   {
     if(delTemplate !== newTitle)
     {
-      var removingTemplate = browser.storage.local.remove(delTemplate);
+      var removingTemplate = chrome.storage.local.remove(delTemplate);
       removingTemplate.then(() =>
       {
         displayTemplate(newTitle, newBody);
-      }, onError);
+      });
     }
     else
     {
       displayTemplate(newTitle, newBody);
     }
-  }, onError);
+  });
 }

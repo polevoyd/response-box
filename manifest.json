@@ -33,7 +33,6 @@
   "permissions": 
   [
     "tabs",
-    "menus",
     "activeTab",
     "contextMenus",
     "<all_urls>",
