@@ -4,11 +4,11 @@
 
 ResponseBox it's a browser extension that let you create messages templates in your browser and paste them in one click to emails/social medias/chats.
 <br></br>
-[Install for Chrome](https://chrome.google.com/webstore/detail/backnote/gcikdkpooobdlgkkimomdgochmclliek)
+[Install for Chrome](https://google.com)
 
-[Install for Firefox](https://addons.mozilla.org/en-US/firefox/addon/backnote/)
+[Install for Firefox](https://google.com)
 
-[ProductHunt page](https://www.producthunt.com/posts/backnote)
+[ProductHunt page](https://google.com)
 
 #### How to use:
 
