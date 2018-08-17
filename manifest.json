@@ -2,19 +2,20 @@
   "manifest_version": 2,
   "name": "Response Box",
   "version": "1.0",
+  "description": "Pre-built messages from templates in your browser. Canned messages on right click that can be used in emails/social medias/chats.",
 
 
   "icons": 
   {
-    "16": "images/icon16.png",
-    "48": "images/icon.png"
+    "16": "images/16.png",
+    "48": "images/48.png"
   },
 
   "browser_action": 
   {
     "default_icon": 
     {
-      "48": "images/icon.png"
+      "48": "images/48.png"
     },
     "default_title": "Response Box"
   },
