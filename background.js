@@ -2,7 +2,7 @@
 // on a first installation
 function installTemplatesPreset() 
 {
-  var follow_up = "Hi NAME,\n\nHope you’re doing well! I just wanted to follow up and ask whether you have any updates on ISSUE? Looking forward to hearing from you.\n\nBest regards, MY_NAME.";
+  var follow_up = "Hi NAME,\n\nHope you’re doing well! I just wanted to follow up and ask whether you have any updates on ISSUE? Looking forward to hearing from you.\n\nBest regards,\nMY_NAME.";
   browser.storage.local.set({follow_up});
 
   var issue_response = 'Hey CUSTOMER,\n\nI wanted to update you about the status of your issue. Your issue is in progress and is being worked on by our product team. We\'re prioritizing your request, and I will make sure it\'s resolved ASAP. Thanks for your patience!\n\nTake care,\nYOUR_NAME';
