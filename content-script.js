@@ -1,4 +1,15 @@
 
+// object clicked
+let clickedTextarea;
+
+// to capture object
+document.addEventListener('contextmenu', function(event)
+{
+  console.log(event.target);
+  clickedTextarea = event.target;
+});
+
+
 //----------------------------------------------------------------
 // listener for a message to fill a field with template
 chrome.runtime.onMessage.addListener(request =>
@@ -13,7 +24,7 @@ chrome.runtime.onMessage.addListener(request =>
   {
     e.clipboardData.setData('text/plain', request.template);
 
-    // console.log('We recieve: ' + request.template);
+    console.log('We recieve: ' + request.template);
     
     e.preventDefault();
   });
@@ -21,8 +32,18 @@ chrome.runtime.onMessage.addListener(request =>
   // firing copy event
   document.execCommand('copy');
 
+  // focus on area
+  clickedTextarea.focus();
+
+  clickedTextarea.innerHTML = request.template;
+  // clickedTextarea.innerText = request.template;
+
   // pasting
   document.execCommand('paste');
+
+
+
+
 });
 
 /////////////////////////////////////////////////////////////////////////////
