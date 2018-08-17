@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener(request =>
   // clickedTextarea.innerText = request.template;
 
   // pasting
-  document.execCommand('paste');
+  // document.execCommand('paste');
 
 
 
