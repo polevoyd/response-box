@@ -6,7 +6,7 @@ ResponseBox it's a browser extension that let you create messages templates in y
 <br></br>
 [Install for Chrome](https://google.com)
 
-[Install for Firefox](https://google.com)
+[Install for Firefox](https://addons.mozilla.org/en-US/firefox/addon/responsebox/)
 
 [ProductHunt page](https://google.com)
 
