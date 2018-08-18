@@ -105,20 +105,20 @@ function displayTemplate(title, body)
   var templateBodyEdit = document.createElement('textarea');
   var clearFix2 = document.createElement('div');
 
-  var updateBtn = document.createElement('button');
-  var cancelBtn = document.createElement('button');
+  // var updateBtn = document.createElement('button');
+  // var cancelBtn = document.createElement('button');
 
-  updateBtn.setAttribute('class','update');
-  updateBtn.textContent = 'Update template';
-  cancelBtn.setAttribute('class','cancel');
-  cancelBtn.textContent = 'Cancel update';
+  // updateBtn.setAttribute('class','update');
+  // updateBtn.textContent = 'Update template';
+  // cancelBtn.setAttribute('class','cancel');
+  // cancelBtn.textContent = 'Cancel update';
 
   templateEdit.appendChild(templateTitleEdit);
   templateTitleEdit.value = title;
   templateEdit.appendChild(templateBodyEdit);
   templateBodyEdit.textContent = body;
-  templateEdit.appendChild(updateBtn);
-  templateEdit.appendChild(cancelBtn);
+  // templateEdit.appendChild(updateBtn);
+  // templateEdit.appendChild(cancelBtn);
 
   templateEdit.appendChild(clearFix2);
   clearFix2.setAttribute('class','clearfix');
@@ -130,54 +130,54 @@ function displayTemplate(title, body)
 
   // adding listeners to update functionality
 
-  templateH.addEventListener('click',() =>
-  {
-    templateDisplay.style.display = 'none';
-    templateEdit.style.display = 'block';
-  });
+  // templateH.addEventListener('click',() =>
+  // {
+  //   templateDisplay.style.display = 'none';
+  //   templateEdit.style.display = 'block';
+  // });
 
-  templatePara.addEventListener('click',() =>
-  {
-    templateDisplay.style.display = 'none';
-    templateEdit.style.display = 'block';
-  });
+  // templatePara.addEventListener('click',() =>
+  // {
+  //   templateDisplay.style.display = 'none';
+  //   templateEdit.style.display = 'block';
+  // });
 
-  cancelBtn.addEventListener('click',() =>
-  {
-    templateDisplay.style.display = 'block';
-    templateEdit.style.display = 'none';
-    templateTitleEdit.value = title;
-    templateBodyEdit.value = body;
-  });
+  // cancelBtn.addEventListener('click',() =>
+  // {
+  //   templateDisplay.style.display = 'block';
+  //   templateEdit.style.display = 'none';
+  //   templateTitleEdit.value = title;
+  //   templateBodyEdit.value = body;
+  // });
 
-  updateBtn.addEventListener('click',() =>
-  {
-    if(templateTitleEdit.value !== title || templateBodyEdit.value !== body)
-    {
-      updateTemplate(title, templateTitleEdit.value,templateBodyEdit.value);
-      template.parentNode.removeChild(template);
-    }
-  });
+  // updateBtn.addEventListener('click',() =>
+  // {
+  //   if(templateTitleEdit.value !== title || templateBodyEdit.value !== body)
+  //   {
+  //     updateTemplate(title, templateTitleEdit.value,templateBodyEdit.value);
+  //     template.parentNode.removeChild(template);
+  //   }
+  // });
 }
 
 //----------------------------------------------------------------
 // function to update templates
-function updateTemplate(delTemplate,newTitle,newBody)
-{
-  var storingTemplate = chrome.storage.local.set({ [newTitle] : newBody });
-  storingTemplate.then(() =>
-  {
-    if(delTemplate !== newTitle)
-    {
-      var removingTemplate = chrome.storage.local.remove(delTemplate);
-      removingTemplate.then(() =>
-      {
-        displayTemplate(newTitle, newBody);
-      });
-    }
-    else
-    {
-      displayTemplate(newTitle, newBody);
-    }
-  });
-}
+// function updateTemplate(delTemplate,newTitle,newBody)
+// {
+//   var storingTemplate = chrome.storage.local.set({ [newTitle] : newBody });
+//   storingTemplate.then(() =>
+//   {
+//     if(delTemplate !== newTitle)
+//     {
+//       var removingTemplate = chrome.storage.local.remove(delTemplate);
+//       removingTemplate.then(() =>
+//       {
+//         displayTemplate(newTitle, newBody);
+//       });
+//     }
+//     else
+//     {
+//       displayTemplate(newTitle, newBody);
+//     }
+//   });
+// }
