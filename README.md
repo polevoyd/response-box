@@ -4,7 +4,7 @@
 
 ResponseBox it's a browser extension that let you create messages templates in your browser and paste them in one click to emails/social medias/chats.
 <br></br>
-[Install for Chrome](https://google.com)
+[Install for Chrome](https://chrome.google.com/webstore/detail/response-box/ogomkaomgiefjihfoaoajomablaiiknf)
 
 [Install for Firefox](https://addons.mozilla.org/en-US/firefox/addon/responsebox/)
 
