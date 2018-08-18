@@ -1,6 +1,6 @@
 # ResponseBox
 ###### Pre-built messages from templates in your browser.
-*Current version: 1.0*
+*Current version: 1.1*
 
 ResponseBox it's a browser extension that let you create messages templates in your browser and paste them in one click to emails/social medias/chats.
 <br></br>
