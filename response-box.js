@@ -2,9 +2,7 @@
 // initializing what already there
 var inputTitle = document.querySelector('.new-template input');
 var inputBody = document.querySelector('.new-template textarea');
-
 var templateContainer = document.querySelector('.template-container');
-
 var addBtn = document.querySelector('.add');
 
 //----------------------------------------------------------------
