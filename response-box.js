@@ -17,7 +17,7 @@ addBtn.addEventListener('click', addTemplate);
 
 initialize();
 
-function initialize() 
+function initialize()
 {
   chrome.storage.local.get((storageEntries) =>
   {
@@ -34,14 +34,14 @@ function initialize()
 //----------------------------------------------------------------
 // adding template to display and to storage
 
-function addTemplate() 
+function addTemplate()
 {
   var templateTitle = inputTitle.value;
   var templateBody = inputBody.value;
   chrome.storage.local.get(templateTitle, function(entry)
   {
     var objTest = Object.keys(entry);
-    if(objTest.length < 1 && templateTitle !== '' && templateBody !== '') 
+    if(objTest.length < 1 && templateTitle !== '' && templateBody !== '')
     {
       inputTitle.value = '';
       inputBody.value = '';
@@ -62,11 +62,11 @@ function storeTemplate(title, body)
 }
 
 //----------------------------------------------------------------
-// to display template in a box 
+// to display template in a box
 
 function displayTemplate(title, body)
 {
-  // create new desplay box 
+  // create new desplay box
   var template = document.createElement('div');
   var templateDisplay = document.createElement('div');
   var templateH = document.createElement('h2');
@@ -98,27 +98,27 @@ function displayTemplate(title, body)
     chrome.storage.local.remove(title);
   });
 
-  // creating a editing box 
+  // creating a editing box
 
   var templateEdit = document.createElement('div');
   var templateTitleEdit = document.createElement('input');
   var templateBodyEdit = document.createElement('textarea');
   var clearFix2 = document.createElement('div');
 
-  // var updateBtn = document.createElement('button');
-  // var cancelBtn = document.createElement('button');
+  var updateBtn = document.createElement('button');
+  var cancelBtn = document.createElement('button');
 
-  // updateBtn.setAttribute('class','update');
-  // updateBtn.textContent = 'Update template';
-  // cancelBtn.setAttribute('class','cancel');
-  // cancelBtn.textContent = 'Cancel update';
+  updateBtn.setAttribute('class','update');
+  updateBtn.textContent = 'Update template';
+  cancelBtn.setAttribute('class','cancel');
+  cancelBtn.textContent = 'Cancel update';
 
   templateEdit.appendChild(templateTitleEdit);
   templateTitleEdit.value = title;
   templateEdit.appendChild(templateBodyEdit);
   templateBodyEdit.textContent = body;
-  // templateEdit.appendChild(updateBtn);
-  // templateEdit.appendChild(cancelBtn);
+  templateEdit.appendChild(updateBtn);
+  templateEdit.appendChild(cancelBtn);
 
   templateEdit.appendChild(clearFix2);
   clearFix2.setAttribute('class','clearfix');
@@ -130,54 +130,52 @@ function displayTemplate(title, body)
 
   // adding listeners to update functionality
 
-  // templateH.addEventListener('click',() =>
-  // {
-  //   templateDisplay.style.display = 'none';
-  //   templateEdit.style.display = 'block';
-  // });
+  templateH.addEventListener('click',() =>
+  {
+    templateDisplay.style.display = 'none';
+    templateEdit.style.display = 'block';
+  });
 
-  // templatePara.addEventListener('click',() =>
-  // {
-  //   templateDisplay.style.display = 'none';
-  //   templateEdit.style.display = 'block';
-  // });
+  templatePara.addEventListener('click',() =>
+  {
+    templateDisplay.style.display = 'none';
+    templateEdit.style.display = 'block';
+  });
 
-  // cancelBtn.addEventListener('click',() =>
-  // {
-  //   templateDisplay.style.display = 'block';
-  //   templateEdit.style.display = 'none';
-  //   templateTitleEdit.value = title;
-  //   templateBodyEdit.value = body;
-  // });
+  cancelBtn.addEventListener('click',() =>
+  {
+    templateDisplay.style.display = 'block';
+    templateEdit.style.display = 'none';
+    templateTitleEdit.value = title;
+    templateBodyEdit.value = body;
+  });
 
-  // updateBtn.addEventListener('click',() =>
-  // {
-  //   if(templateTitleEdit.value !== title || templateBodyEdit.value !== body)
-  //   {
-  //     updateTemplate(title, templateTitleEdit.value,templateBodyEdit.value);
-  //     template.parentNode.removeChild(template);
-  //   }
-  // });
+  updateBtn.addEventListener('click',() =>
+  {
+    if(templateTitleEdit.value !== title || templateBodyEdit.value !== body)
+    {
+      updateTemplate(title, templateTitleEdit.value,templateBodyEdit.value);
+      template.parentNode.removeChild(template);
+    }
+  });
 }
 
 //----------------------------------------------------------------
 // function to update templates
-// function updateTemplate(delTemplate,newTitle,newBody)
-// {
-//   var storingTemplate = chrome.storage.local.set({ [newTitle] : newBody });
-//   storingTemplate.then(() =>
-//   {
-//     if(delTemplate !== newTitle)
-//     {
-//       var removingTemplate = chrome.storage.local.remove(delTemplate);
-//       removingTemplate.then(() =>
-//       {
-//         displayTemplate(newTitle, newBody);
-//       });
-//     }
-//     else
-//     {
-//       displayTemplate(newTitle, newBody);
-//     }
-//   });
-// }
+function updateTemplate(delTemplate,newTitle,newBody)
+{
+  let storingTemplate = chrome.storage.local.set({ [newTitle] : newBody }, function() {
+    if(delTemplate !== newTitle)
+    {
+      let removingTemplate = chrome.storage.local.remove(delTemplate);
+      removingTemplate.then(() =>
+      {
+        displayTemplate(newTitle, newBody);
+      });
+    }
+    else
+    {
+      displayTemplate(newTitle, newBody);
+    }
+  });
+}
