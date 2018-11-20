@@ -160,8 +160,8 @@ function displayTemplate(title, body)
   });
 }
 
-//----------------------------------------------------------------
 // function to update templates
+
 function updateTemplate(delTemplate,newTitle,newBody)
 {
   let storingTemplate = chrome.storage.local.set({ [newTitle] : newBody }, function() {
