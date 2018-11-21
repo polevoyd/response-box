@@ -132,7 +132,12 @@ textarea
 
 p 
 {
-  margin: 0;
+  margin: 2.5vw 0 2.5vw 0;
+  letter-spacing: 0.5px;
+}
+
+b {
+  margin-right: 1vw;
 }
 
 .cancel 
