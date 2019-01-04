@@ -1,9 +1,9 @@
 //----------------------------------------------------------------
 // initializing what already there
-var inputTitle = document.querySelector('.new-template input');
-var inputBody = document.querySelector('.new-template textarea');
-var templateContainer = document.querySelector('.template-container');
-var addBtn = document.querySelector('.add');
+let inputTitle = document.querySelector('.new-template input');
+let inputBody = document.querySelector('.new-template textarea');
+let templateContainer = document.querySelector('.template-container');
+let addBtn = document.querySelector('.add');
 
 //----------------------------------------------------------------
 // adding listeners to buttons
@@ -22,7 +22,8 @@ function initialize()
     Object.keys(storageEntries).forEach((entry) =>
     {
       let currentKey = entry;
-      let currentValue = Object.values(storageEntries)[0];
+      // let currentValue = Object.values(storageEntries)[0];
+      let currentValue = storageEntries[entry];
 
       displayTemplate(currentKey, currentValue);
     });
@@ -34,11 +35,11 @@ function initialize()
 
 function addTemplate()
 {
-  var templateTitle = inputTitle.value;
-  var templateBody = inputBody.value;
+  let templateTitle = inputTitle.value;
+  let templateBody = inputBody.value;
   chrome.storage.local.get(templateTitle, function(entry)
   {
-    var objTest = Object.keys(entry);
+    let objTest = Object.keys(entry);
     if(objTest.length < 1 && templateTitle !== '' && templateBody !== '')
     {
       inputTitle.value = '';
@@ -65,12 +66,12 @@ function storeTemplate(title, body)
 function displayTemplate(title, body)
 {
   // create new desplay box
-  var template = document.createElement('div');
-  var templateDisplay = document.createElement('div');
-  var templateH = document.createElement('h2');
-  var templatePara = document.createElement('p');
-  var deleteBtn = document.createElement('button');
-  var clearFix = document.createElement('div');
+  let template = document.createElement('div');
+  let templateDisplay = document.createElement('div');
+  let templateH = document.createElement('h2');
+  let templatePara = document.createElement('p');
+  let deleteBtn = document.createElement('button');
+  let clearFix = document.createElement('div');
 
   template.setAttribute('class','template');
 
@@ -98,13 +99,13 @@ function displayTemplate(title, body)
 
   // creating a editing box
 
-  var templateEdit = document.createElement('div');
-  var templateTitleEdit = document.createElement('input');
-  var templateBodyEdit = document.createElement('textarea');
-  var clearFix2 = document.createElement('div');
+  let templateEdit = document.createElement('div');
+  let templateTitleEdit = document.createElement('input');
+  let templateBodyEdit = document.createElement('textarea');
+  let clearFix2 = document.createElement('div');
 
-  var updateBtn = document.createElement('button');
-  var cancelBtn = document.createElement('button');
+  let updateBtn = document.createElement('button');
+  let cancelBtn = document.createElement('button');
 
   updateBtn.setAttribute('class','update');
   updateBtn.textContent = 'Update template';
